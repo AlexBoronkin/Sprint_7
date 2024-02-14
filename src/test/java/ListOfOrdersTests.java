@@ -12,10 +12,17 @@ public class ListOfOrdersTests extends TestData {
 
     @DisplayName("Получение списка заказов без заполнения полей. Смотрим что тело не пустое")
     @Test
-    public void CheckListOfOrdersIsNotEmpty() {
-        given().spec(BaseHttpClient.baseRequestSpec())
+    public void checkListOfOrdersIsNotEmpty() {
+
+        Response response = given().spec(BaseHttpClient.baseRequestSpec())
                 .get(API_ORDER);
-        MatcherAssert.assertThat("orders", notNullValue());
+        response.then().log().all()
+                .statusCode(200);
+        MatcherAssert.assertThat("orders.id", notNullValue());
+
+      /*  given().spec(BaseHttpClient.baseRequestSpec())
+                .get(API_ORDER);
+        MatcherAssert.assertThat("orders", notNullValue());*/
 
     }
 }
